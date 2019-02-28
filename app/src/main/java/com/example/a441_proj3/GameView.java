@@ -6,12 +6,15 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.os.Handler;
 import android.view.Display;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.TextView;
 
 import java.util.Random;
 
@@ -42,7 +45,8 @@ public class GameView extends View {
     int[] tubeX = new int[numberOfTubes];
     int[] topTubeY = new int[numberOfTubes];
     Random rand;
-    int tubeVelocity = 11;
+    int tubeVelocity = 12;
+    int pts;
 
     public GameView(Context context){
         super(context);
@@ -80,8 +84,19 @@ public class GameView extends View {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-        //canvas.drawBitmap(background,0,0,null);
+
         canvas.drawBitmap(background,null,rect,null);
+
+        Paint paint = new Paint();
+        paint.setStyle(Paint.Style.STROKE);
+        paint.setStrokeWidth(5);
+        paint.setColor(Color.GRAY);
+        paint.setTextSize(80);
+        String temp = String.valueOf(pts);
+        canvas.drawText("Points: " + temp,0,100,paint);
+
+        //canvas.translate(0,200);
+
 
         if(gameState){
             if(orbY < dHeight - orbs[0].getHeight() || velocity < 0){
@@ -94,6 +109,11 @@ public class GameView extends View {
                 if(tubeX[i] < -toptube.getWidth()){
                     tubeX[i] += numberOfTubes * distanceBetweenTubes;
                     topTubeY[i] = minTubeOffset + rand.nextInt(maxTubeOffset - minTubeOffset + 1);
+                    pts++;
+                    if(pts%10 == 0 && pts != 0){
+                        tubeVelocity += 1;
+                        gravity += 1;
+                    }
                 }
                 canvas.drawBitmap(toptube, tubeX[i], topTubeY[i] - toptube.getHeight(),null);
                 canvas.drawBitmap(bottomtube,tubeX[i],topTubeY[i] + gap, null);
@@ -110,14 +130,13 @@ public class GameView extends View {
     public boolean onTouchEvent (MotionEvent event){
         int action = event.getAction();
         if(action == MotionEvent.ACTION_DOWN){
-//            velocity = -30;
             gameState = true;
             if(gravityToggle){
-                velocity = -24;
+                velocity = -16;
                 gravity = 3;
                 gravityToggle = !gravityToggle;
             } else {
-                velocity = 24;
+                velocity = 16;
                 gravity = -3;
                 gravityToggle = !gravityToggle;
             }

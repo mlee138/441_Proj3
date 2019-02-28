@@ -13,6 +13,37 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
+        android:textStyle="italic"
         android:onClick="startGame"
-        android:text="@string/Play" />
+        android:text="@string/Button" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        app:srcCompat="@drawable/orb"
+        style="@style/imageView" />
+
+    <TextView
+        android:id="@+id/Title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="65pt"
+        android:text="@string/Title"
+        android:fontFamily="cursive"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:textSize="22pt" />
+
+    <TextView
+        android:id="@+id/Title2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginVertical="90pt"
+        android:text="@string/Title2"
+        android:fontFamily="cursive"
+        android:textColor="@color/colorWhite"
+        android:textStyle="bold"
+        android:textSize="22pt" />
+
 </RelativeLayout>
